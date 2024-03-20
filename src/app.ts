@@ -24,7 +24,7 @@ app.use("/pluto", (req: Request, res: Response, next: NextFunction) => {
 
 app.use("assets", express.static("public")); // per le rotte che cominciano con /assets vado a vedere se trovo una corrispondenza nella cartella public
 
-app.use(express.static("public")); // qui viene intercettata qualsiasi richiesta, es root del sito/pippo.html
+app.use(express.static("public")); // qui viene intercettata qualsiasi richiesta sotto root, es root del sito/pippo.html
 
 app.get("/", (req: Request, res: Response) => {
     // console.log(req.body);
