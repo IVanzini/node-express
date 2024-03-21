@@ -24,7 +24,7 @@ app.use("/pluto", (req: Request, res: Response, next: NextFunction) => {
 
 app.use("assets", express.static("public")); // per le rotte che cominciano con /assets vado a vedere se trovo una corrispondenza nella cartella public
 
-app.use(express.static("public")); // qui viene intercettata qualsiasi richiesta sotto root, es root del sito/pippo.html
+app.use(express.static("public")); // qui viene intercettata qualsiasi richiesta sotto root, es root del sito/pippo.html, viene fatto next() solo se non viene trovato il path specificato nell'url altrimenti viene fatto un res.sendFile() del file trovato
 
 app.get("/", (req: Request, res: Response) => {
     // console.log(req.body);
@@ -48,13 +48,11 @@ app.get("/mario", (req: Request, res: Response) => {
     res.json(mario);
 });
 
-app.get("/films/popolari", (req: Request, res: Response) => { 
-    const idFilm  = req.params["id"]; 
+app.get("/films/popolari", (req: Request, res: Response) => {  
     res.status(200).send("Hai richiesto l'elenco dei films POPOLARI"); // 200 è lo status di default
 });
 
-app.post("/films/nuovo", (req: Request, res: Response) => { 
-    const idFilm  = req.params["id"]; 
+app.post("/films/nuovo", (req: Request, res: Response) => {  
     res.send("Pensavi di inserire un film sul db e invece torno questa stringa"); 
 });
 
@@ -92,7 +90,7 @@ app.get("/errore", (req: Request, res: Response) => { // simulazione di errore p
     throw new Error("errore simulato");
 });
 
-app.get("/errore-gestito", (req: Request, res: Response) => { 
+app.get("/errore-gestito", (req: Request, res: Response) => { // simulazione di qualcosa dentro il try che va in errore
     try {
         throw new Error("errore simulato nel try-catch");
     } catch (error) {
